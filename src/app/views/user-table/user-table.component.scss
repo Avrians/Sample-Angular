@@ -1,0 +1,107 @@
+.user-table-container {
+  font-family: Arial, sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+
+  h2 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  .table-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    .search-container {
+      input {
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        min-width: 250px;
+
+        &:focus {
+          outline: none;
+          border-color: #007bff;
+        }
+      }
+    }
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+    th,
+    td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f8f9fa;
+      font-weight: bold;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #e9ecef;
+      }
+    }
+
+    tr:hover {
+      background-color: #f5f5f5;
+    }
+  }
+
+  .actions {
+    button {
+      padding: 6px 12px;
+      margin-right: 5px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+
+      &.btn-edit {
+        background-color: #17a2b8;
+        color: white;
+
+        &:hover {
+          background-color: #138496;
+        }
+      }
+
+      &.btn-delete {
+        background-color: #dc3545;
+        color: white;
+
+        &:hover {
+          background-color: #c82333;
+        }
+      }
+    }
+  }
+
+  .status-active {
+    color: #28a745;
+    font-weight: bold;
+  }
+
+  .status-inactive {
+    color: #dc3545;
+    font-weight: bold;
+  }
+
+  .loading,
+  .error,
+  .no-data {
+    text-align: center;
+    padding: 20px;
+  }
+
+  .error {
+    color: #dc3545;
+  }
+}

@@ -1,0 +1,53 @@
+<div class="user-table-container">
+  <h2>User Management</h2>
+
+  <div class="table-actions">
+    <div class="search-container">
+      <input
+        type="text"
+        placeholder="Search users..."
+        (input)="onSearch($event)"
+        [value]="searchTerm()"
+      />
+    </div>
+  </div>
+
+  <div *ngIf="isLoading()" class="loading">Loading users...</div>
+
+  <div *ngIf="error()" class="error">
+    {{ error() }}
+  </div>
+
+  <table *ngIf="!isLoading() && !error()">
+    <thead>
+      <tr>
+        <th (click)="sortBy('id')">#</th>
+        <th (click)="sortBy('name')">Name</th>
+        <th (click)="sortBy('email')">Email</th>
+        <th (click)="sortBy('role')">Role</th>
+        <th (click)="sortBy('status')">Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of filteredUsers()">
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.role }}</td>
+        <td>
+          <span [ngClass]="user.status ? 'status-active' : 'status-inactive'">
+            {{ user.status ? "Active" : "Inactive" }}
+          </span>
+        </td>
+        <td class="actions">
+          <button class="btn-edit">Edit</button>
+          <button class="btn-delete">Delete</button>
+        </td>
+      </tr>
+      <tr *ngIf="filteredUsers().length === 0">
+        <td colspan="6" class="no-data">No users found</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
