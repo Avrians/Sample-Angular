@@ -30,7 +30,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of filteredUsers()">
+      <tr *ngFor="let user of paginatedUsers()">
         <td>{{ user.id }}</td>
         <td>{{ user.name }}</td>
         <td>{{ user.email }}</td>
@@ -45,9 +45,86 @@
           <button class="btn-delete">Delete</button>
         </td>
       </tr>
-      <tr *ngIf="filteredUsers().length === 0">
+      <tr *ngIf="paginatedUsers().length === 0">
         <td colspan="6" class="no-data">No users found</td>
       </tr>
     </tbody>
   </table>
+
+  <!-- Pagination controls -->
+  <div
+    class="pagination-container"
+    *ngIf="!isLoading() && !error() && pagination().totalPages > 0"
+  >
+    <div class="pagination-info">
+      Showing
+      {{ (pagination().currentPage - 1) * pagination().pageSize + 1 }} to
+      {{
+        Math.min(
+          pagination().currentPage * pagination().pageSize,
+          pagination().totalItems
+        )
+      }}
+      of {{ pagination().totalItems }} entries
+    </div>
+
+    <div class="page-size-selector">
+      <span>Show</span>
+      <select (change)="changePageSize($event)">
+        <option
+          *ngFor="let size of pageSizeOptions"
+          [value]="size"
+          [selected]="pagination().pageSize === size"
+        >
+          {{ size }}
+        </option>
+      </select>
+      <span>entries</span>
+    </div>
+
+    <div class="pagination-controls">
+      <button
+        class="pagination-btn"
+        [disabled]="pagination().currentPage === 1"
+        (click)="goToPage(1)"
+      >
+        First
+      </button>
+
+      <button
+        class="pagination-btn"
+        [disabled]="pagination().currentPage === 1"
+        (click)="goToPage(pagination().currentPage - 1)"
+      >
+        Previous
+      </button>
+
+      <div class="page-numbers">
+        <button
+          *ngFor="let page of getPageNumbers()"
+          class="page-number"
+          [class.active]="pagination().currentPage === page"
+          (click)="goToPage(page)"
+        >
+          {{ page }}
+        </button>
+      </div>
+
+      <button
+        class="pagination-btn"
+        [disabled]="pagination().currentPage === pagination().totalPages"
+        (click)="goToPage(pagination().currentPage + 1)"
+      >
+        Next
+      </button>
+
+      <button
+        class="pagination-btn"
+        [disabled]="pagination().currentPage === pagination().totalPages"
+        (click)="goToPage(pagination().totalPages)"
+      >
+        Last
+      </button>
+    </div>
+  </div>
 </div>
